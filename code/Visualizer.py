@@ -14,13 +14,20 @@ class Visualizer:
         self.db = pymysql.connect(host='localhost',
                                   user="root",
                                   password="",
-                                  port=4000,  # 端口
+                                  port=4000,
                                   database="test",
                                   charset='utf8')
 
         self.cursor = self.db.cursor()
 
     def create(self, i: int):
+        """
+        create an table
+        :param i: index
+        :return: 
+        """
+
+        # 为了使图像明显，所以多添加了几个数据，使读取数据量增加
         sql_create = """create table if not exists graph_test{} (
                         id int PRIMARY KEY AUTO_INCREMENT,
                         name1 varchar(50) NOT NULL,
@@ -37,10 +44,15 @@ class Visualizer:
             # 发生错误时回滚
             self.db.rollback()
 
-    def insert(self, db_name: str):
+    def insert(self, table_name: str):
+        """
+        insert values to table
+        :param table_name: 
+        :return: 
+        """
         sql_insert = "insert into {} values(null,'it is just a test'," \
                      "'it is just a test','it is just a test'," \
-                     "'it is just a test','it is just a test')".format(db_name)
+                     "'it is just a test','it is just a test')".format(table_name)
         try:
             self.cursor.execute(sql_insert)
             # 提交到数据库执行
@@ -49,11 +61,18 @@ class Visualizer:
             # 发生错误时回滚
             self.db.rollback()
 
-    def select(self, db_name: str, id_name: int, echo: int):
-        if echo == 0:
+    def select(self, table_name: str, id_name: int, num: int):
+        """
+        access db
+        :param table_name: 
+        :param id_name: 
+        :param num: number of access
+        :return: 
+        """
+        if num == 0:
             return
-        for i in range(echo):
-            sql_select = "select * from " + db_name + " where id = " + str(id_name)
+        for i in range(num):
+            sql_select = "select * from " + table_name + " where id = " + str(id_name)
             try:
                 # 执行SQL语句
                 self.cursor.execute(sql_select)
@@ -64,6 +83,11 @@ class Visualizer:
 
     @staticmethod
     def load_image(file: str):
+        """
+        convert image to gray and get matrix
+        :param file: image name
+        :return: matrix of gray image
+        """
         im = Image.open(file)
         im.show()
         L = im.convert('L')
@@ -72,6 +96,11 @@ class Visualizer:
         return image
 
     def draw_image(self, image):
+        """
+        Draw a emoji by access db
+        :param image: matrix of image
+        :return:
+        """
         pixel = image.shape[1] // 8
         for j in range(image.shape[1] * pixel + 20):
             self.create(j)
