@@ -4,7 +4,7 @@
 
 效果图：
 
-![visualize_TiDB](summary/visualize_TiDB.png)
+![visualize_TiDB](visualize_TiDB.png)
 
 ![visualize_TiDB](visualize_emoji.png)
 
