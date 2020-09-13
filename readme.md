@@ -4,9 +4,9 @@
 
 效果图：
 
-![visualize_TiDB](visualize_TiDB.png)
+![visualize_TiDB](image/visualize_TiDB.png)
 
-![visualize_TiDB](visualize_emoji.png)
+![visualize_TiDB](image/visualize_emoji.png)
 
 ### 问题分析
 
